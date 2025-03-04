@@ -12,11 +12,10 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
             if (err) {
                 return res.status(401).json({ message: "Invalid or expired token" });
             }
-            console.log("Token verified:", decoded);
             next();
         });
     } catch (error) {
-        console.log('error', error)
+        res.status(500).send({ success: false, message: 'Internal Server Error' })
     }
 
 }

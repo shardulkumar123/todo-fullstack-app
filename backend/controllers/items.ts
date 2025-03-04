@@ -31,8 +31,6 @@ const ItemController = {
     getAllItems: async (_req: Request, res: Response): Promise<void> => {
         try {
             const items = await Item.findAll({});
-            console.log('items', items)
-
             res.status(200).json({
                 success: true,
                 message: "All items retrieved",

@@ -26,7 +26,6 @@ const Users = {
 
       // Hash the password before saving
       const hashedPassword = await bcrypt.hash(password, 10);
-      console.log('hashedPassword', hashedPassword);
 
       // Create new user
       const newUser = await User.create({
@@ -34,8 +33,6 @@ const Users = {
         email,
         password: hashedPassword,
       } as any);
-
-      console.log('newUser', newUser);
 
       res.status(201).json({
         success: true,
