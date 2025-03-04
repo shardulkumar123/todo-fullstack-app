@@ -3,10 +3,10 @@ import items from "../controllers/items";
 import { verifyToken } from "../middleware/authVerify";
 const router = express.Router();
 
-router.post("/", items.createItem);
-router.get('/', items.getAllItems)
-router.get('/:id', items.getItemById)
-router.patch("/:id", items.updateItem)
-router.delete('/:id', items.deleteItem)
+router.post("/", verifyToken, items.createItem);
+router.get('/', verifyToken, items.getAllItems)
+router.get('/:id', verifyToken, items.getItemById)
+router.patch("/:id", verifyToken, items.updateItem)
+router.delete('/:id', verifyToken, items.deleteItem)
 
 export default router;

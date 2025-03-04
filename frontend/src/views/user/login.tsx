@@ -16,6 +16,7 @@ import * as yup from "yup";
 import Input from "@/components/Input";
 import usePost from "@/hooks/usePost";
 import SnackbarComponent from "@/components/Snackbar";
+import { useUser } from "@/context/UserContext";
 
 const schema = yup.object({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -28,6 +29,8 @@ const schema = yup.object({
 const Login = () => {
   const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null);
   const router = useRouter();
+  const { login: setUser } = useUser();
+
   const { mutation, loading: isPending } = usePost(`/user/auth/login`);
 
   const {
@@ -42,7 +45,14 @@ const Login = () => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const response: any = await mutation(data);
+      console.log("response", response);
       if (response?.success) {
+        setUser({
+          id: response.user.id,
+          name: response.user.name,
+          email: response.user.email,
+          token: response.token,
+        });
         setSnackbarMessage(response?.message);
         router.push("/");
       }

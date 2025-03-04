@@ -77,8 +77,11 @@ const Users = {
         { expiresIn: "3d" }
       );
 
-      res.cookie("token", token);
-      res.status(200).json({
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false,
+      });
+      return res.status(200).json({
         success: true,
         message: "Login successful",
         token,
