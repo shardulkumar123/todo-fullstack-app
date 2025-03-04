@@ -33,7 +33,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     } else if (token) {
-      // Decode token if needed and set user data
       const userData = JSON.parse(atob(token.split("=")[1].split(".")[1]));
       setUser(userData);
     }
